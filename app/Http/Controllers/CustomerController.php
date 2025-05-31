@@ -15,7 +15,8 @@ class CustomerController extends Controller
         // Filter berdasarkan kode transaksi jika ada parameter search
         if ($request->has('search')) {
             $search = $request->input('search');
-            $query->where('kode_customer', 'LIKE', "%{$search}%");
+            $query->where('kode_customer', 'LIKE', "%{$search}%")
+            ->orWhere('nama_customer', 'LIKE', "%{$search}%");
         }
 
         $customers = $query->orderBy('created_at', 'asc')->oldest()->paginate(10);
