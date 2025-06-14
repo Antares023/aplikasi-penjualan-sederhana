@@ -138,9 +138,17 @@
                                 </td>
                                 <td class="text-center">
                                     @if($transaction->status == 'done')
-                                        <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3 py-1">
-                                            <i class="fas fa-check-circle me-1"></i> Transaksi Selesai
-                                        </span>
+                                    <div class="btn-group">
+                                        <a href="{{ route('transactions.invoice.view', $transaction->id) }}" class="btn btn-sm btn-outline-success rounded-start" data-bs-toggle="tooltip" 
+                                            class="btn btn-sm btn-success"
+                                            target="_blank">
+                                            <i class="fa-solid fa-file-export"></i>
+                                        </a>
+                                        <a href="{{ route('transactions.invoice.download', $transaction->id) }}" class="btn btn-sm btn-outline-danger rounded-end" data-bs-toggle="tooltip" 
+                                            class="btn btn-sm btn-danger">
+                                            <i class="fas fa-file-pdf"></i>
+                                        </a>
+                                    </div>
                                     @elseif($transaction->quantity > 0)
                                     <div class="btn-group" role="group">
                                         <a href="{{ route('transactions.show', $transaction->id) }}" class="btn btn-sm btn-outline-info rounded-start" data-bs-toggle="tooltip">

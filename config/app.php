@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
+use App\Providers\AppServiceProvider;
+use Barryvdh\DomPDF\Facade as PDF;
 
 return [
 

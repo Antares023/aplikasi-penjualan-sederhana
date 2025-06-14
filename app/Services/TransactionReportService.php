@@ -26,4 +26,5 @@ class TransactionReportService
 
         return $pdf;
     }
+
 }

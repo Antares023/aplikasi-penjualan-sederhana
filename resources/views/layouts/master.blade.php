@@ -567,7 +567,7 @@
                     </li>
 
                     @if (Auth::user()->level == 'admin')
-                    <li class="nav-item">
+                    <li class="nav-item" data-aos="fade-right" data-aos-delay="250">
                         <a class="nav-link" href="{{ route('transactions.index') }}">
                             <i class="fas fa-exchange-alt"></i>
                             <span>Transaction</span>
@@ -575,7 +575,7 @@
                     </li>
                     @endif
                     
-                    <li class="nav-item mt-3" data-aos="fade-right" data-aos-delay="400">
+                    <li class="nav-item mt-3" data-aos="fade-right" data-aos-delay="300">
                         <a class="nav-link" href="{{ route('logout') }}">
                             <i class="fas fa-sign-out-alt"></i>
                             <span>Logout</span>

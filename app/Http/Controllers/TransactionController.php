@@ -6,8 +6,9 @@ use App\Models\Transaction;
 use App\Models\Customer;
 use App\Models\Product;
 use App\Services\TransactionReportService;
-use barryvdh\DomPDF\Facade\Pdf;
+use App\Services\InvoiceReportService;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class TransactionController extends Controller
 {
@@ -158,6 +159,29 @@ class TransactionController extends Controller
             : 'laporan-semua-transaksi-' . date('Ymd') . '.pdf';
         
         return $pdf->download($filename);
+    }
+    
+
+    public function viewInvoice($id)
+    {
+        $transaction = Transaction::select('transactions.*', 'customers.nama_customer','customers.alamat', 'customers.no_telp', 'products.harga', 'products.nama_produk')
+            ->leftJoin('products', 'transactions.kode_produk', '=', 'products.kode_produk')
+            ->leftJoin('customers', 'transactions.kode_customer', '=', 'customers.kode_customer')
+            ->findOrFail($id);
+        return view('pdf.invoice', compact('transaction'));
+    }
+
+
+    public function downloadInvoice($id)
+    {
+        $transaction = Transaction::select('transactions.*', 'customers.nama_customer','customers.alamat', 'customers.no_telp', 'products.harga', 'products.nama_produk')
+            ->leftJoin('products', 'transactions.kode_produk', '=', 'products.kode_produk')
+            ->leftJoin('customers', 'transactions.kode_customer', '=', 'customers.kode_customer')
+            ->findOrFail($id);
+        
+        $pdf = Pdf::loadView('pdf.download_invoice', compact('transaction'));
+        
+        return $pdf->download('invoice-'.$transaction->kode_transaksi.'.pdf');
     }
 
 }

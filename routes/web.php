@@ -35,8 +35,10 @@ Route::middleware(['auth' , 'isLevel:admin'])->group(function () {
     Route::resource('transactions', TransactionController::class);
     Route::post('transactions', [TransactionController::class, 'store'])->name('transactions.store');
     Route::put('/transactions/{id}/update-status', [TransactionController::class, 'updateStatus'])->name('transactions.update-status');
-    Route::get('/pdf/transactions', [TransactionController::class, 'downloadPdf'])->name('transactions.pdf');
     Route::get('/pdf/customers', [CustomerController::class, 'downloadPdf'])->name('customers.pdf');
+    Route::get('/pdf/transactions', [TransactionController::class, 'downloadPdf'])->name('transactions.pdf');
+    Route::get('/transactions/{id}/invoice/view', [TransactionController::class, 'viewInvoice'])->name('transactions.invoice.view');
+    Route::get('/transactions/{id}/invoice/download', [TransactionController::class, 'downloadInvoice'])->name('transactions.invoice.download');
 });
 
 Route::middleware(['auth' , 'isLevel:admin,customer'])->group(function () {
